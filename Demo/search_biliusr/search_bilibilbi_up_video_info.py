@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
+import os
 import requests
 import bs4
 import codecs
@@ -10,8 +10,6 @@ import jsonpath
 import json
 from functools import partial
 import time
-
-
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -129,7 +127,9 @@ def get_one_video_comments(av,video_info):
         author = unicode(author)
         
         print 'writing av{}'.format(aid)
-        with codecs.open(unicode(r'Demo\search_biliusr\search_result-{}.txt').format(author),'a',encoding='utf-16') as f:
+        if not os.path.exists('detial_video_indo_result'):
+            os.makedirs('detial_video_indo_result')
+        with codecs.open(unicode(r'detial_video_indo_result/{}.txt').format(author),'a',encoding='utf-16') as f:
             f.write('VIDEO INFORMATION:\nAV:{}\nTITLE:{}\nAUTHOR:{}\nDESCRIPTION:{}\nPICTURE_URL:https:{}\nLENGTH:{}\nLIKE:{}\nSHARE:{}\nFAVORITE:{}\nDANMUKU:{}\nREPLY:{}\nCOIN:{}\nRANK:{}\nVIEW:{}\n\n\n\n'
             .format(aid,title,author,descripion,pic,length,like,share,fav,danmaku,reply,coin,his_rank,view))
 
@@ -147,10 +147,10 @@ def matching(avdict,av):
 
 if __name__ == "__main__":
     start = time.clock()
-    #upname_to_define = raw_input('input the up name:')
-    #upname_to_define = unicode(upname_to_define)
-    u = unicode(('孙笑川258').decode('utf-8'))
-    uid = search_ID(u)
+    upname_to_define = raw_input('input the up name:')
+    upname_to_define = unicode(upname_to_define)
+    #u = unicode(('孙笑川258').decode('utf-8'))
+    uid = search_ID(upname_to_define)
     l = get_userpage_json(uid)
     avlist,video_info = find_info_from_json(l)
     get_all_comments(avlist,video_info)
