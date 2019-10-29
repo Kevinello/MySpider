@@ -149,7 +149,7 @@ if __name__ == "__main__":
     start = time.clock()
     #upname_to_define = raw_input('input the up name:')
     #upname_to_define = unicode(upname_to_define)
-    u = unicode(('lex').decode('utf-8'))
+    u = unicode(('孙笑川258').decode('utf-8'))
     uid = search_ID(u)
     l = get_userpage_json(uid)
     avlist,video_info = find_info_from_json(l)
